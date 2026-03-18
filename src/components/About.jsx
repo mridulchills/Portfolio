@@ -11,21 +11,21 @@ const CodeIcon = () => (
 
 const TrophyIcon = () => (
   <svg className="service-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 6h20v6a10 10 0 0 1-20 0V6z"/>
-    <path d="M10 22h8"/>
-    <path d="M14 16v6"/>
-    <path d="M4 6V4h20v2"/>
+    <path d="M4 6h20v6a10 10 0 0 1-20 0V6z" />
+    <path d="M10 22h8" />
+    <path d="M14 16v6" />
+    <path d="M4 6V4h20v2" />
   </svg>
 )
 
 const BrainIcon = () => (
   <svg className="service-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M14 2c-3 0-6 2-7 5s1 6 1 6-2 3-1 6 5 4 7 4 5-1 6-4-1-6-1-6 2-3 1-6-4-5-6-5z"/>
-    <circle cx="14" cy="14" r="3"/>
-    <path d="M14 17v4"/>
-    <path d="M14 7v4"/>
-    <path d="M11 14H7"/>
-    <path d="M21 14h-4"/>
+    <path d="M14 2c-3 0-6 2-7 5s1 6 1 6-2 3-1 6 5 4 7 4 5-1 6-4-1-6-1-6 2-3 1-6-4-5-6-5z" />
+    <circle cx="14" cy="14" r="3" />
+    <path d="M14 17v4" />
+    <path d="M14 7v4" />
+    <path d="M11 14H7" />
+    <path d="M21 14h-4" />
   </svg>
 )
 
@@ -47,8 +47,8 @@ export default function About() {
             Building things that<br />matter, one commit at a time.
           </h2>
           <p className="about-body-text reveal">
-            Undergraduate ISE student at Nitte Meenakshi Institute of Technology. 
-            CGPA 9.21 across 5 semesters. Passionate about building real products and 
+            Undergraduate ISE student at Nitte Meenakshi Institute of Technology.
+            CGPA 9.21 across 5 semesters. Passionate about building real products and
             solving hard algorithmic problems.
           </p>
           <a href="mailto:mridultiwari1708@gmail.com" className="yellow-link reveal">
@@ -62,7 +62,7 @@ export default function About() {
             "The best way to predict the future is to build it. I'd rather ship something imperfect than perfect nothing."
           </p>
           <p className="about-body-text reveal">
-            Currently interning at Incerto Technologies, building observability features used daily by real clients. I love solving hard problems — both in production and on the leaderboard.
+            Problem solver exploring AI and intelligent agent systems, focused on building real-world applications. I enjoy tackling complex challenges - both in production systems and on the leaderboard.
           </p>
           <div className="about-stats reveal">
             <div className="stat-block">
