@@ -67,8 +67,8 @@ export default function Hero() {
             <a href="#about" className="yellow-link">
               My story <span className="arr">→</span>
             </a>
-            <a href="/Mridul_Tiwari.pdf" download className="ghost-btn">
-              Download CV
+            <a href="/Resume.pdf" download="Mridul_Tiwari_Resume.pdf" className="ghost-btn">
+              Download Resume
             </a>
           </div>
         </div>
