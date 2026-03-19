@@ -77,7 +77,7 @@ export default function Contact() {
                 <textarea id="message" name="message" rows={4} placeholder="Tell me what's on your mind" required />
               </div>
               <div className="form-actions reveal">
-                <span className="attach-icon" title="Attach file">📎</span>
+                {/*<span className="attach-icon" title="Attach file">📎</span>*/}
                 <button type="submit" className="submit-btn" aria-label="Submit" disabled={status === 'sending'}>
                   {status === 'sending' ? '...' : '→'}
                 </button>
