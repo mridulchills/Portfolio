@@ -61,7 +61,7 @@ export default function Hero() {
             based in Bengaluru, India.
           </p>
           <p className="hero-intro-body">
-            Undergraduate Software Engineering student actively building products that solve real-world problems. I specialize in full-stack architecture, integrated AI solutions, and advancing my competitive programming skills.
+            Undergraduate Bachelor of Engineering student actively building products that solve real-world problems. I specialize in full-stack architecture, integrated AI solutions, and advancing my competitive programming skills.
           </p>
           <div className="hero-actions">
             <a href="#about" className="yellow-link">
