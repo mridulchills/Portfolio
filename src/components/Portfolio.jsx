@@ -28,7 +28,7 @@ export default function Portfolio() {
           {/* FDTS — spans full height on left */}
           <a href="https://fdp-theta.vercel.app" className="project-card project-card--seone" target="_blank" rel="noopener noreferrer">
             <div className="project-card-header">
-              <span className="project-card-name">FDTS.</span>
+              <span className="project-card-name">Faculty Development Tracker System..</span>
               <span className="project-card-tags">Full Stack ·<br />React · SQL</span>
             </div>
             <div className="project-card-image">

@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import SkillsTimeline from './SkillsTimeline'
+import SkillsMarquee from './SkillsMarquee'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import {
   Chart as ChartJS,
@@ -62,6 +65,7 @@ export default function Blog() {
   const [profile, setProfile] = useState(null)
   const [ratings, setRatings] = useState([])
   const [stats, setStats] = useState({ total: 0, today: 0 })
+  const [truckDone, setTruckDone] = useState(false)
   const chartRef = useRef(null)
 
   useEffect(() => {
@@ -223,6 +227,34 @@ export default function Blog() {
 
   return (
     <section id="blog" ref={sectionRef}>
+      {/* ===== SKILLS SECTION ===== */}
+      <div className="skills-section">
+        <div className="skills-header">
+          <div className="section-label reveal">
+            <span className="dash">—</span>
+            <span className="word">Skills</span>
+          </div>
+          <h2 className="display-heading reveal">
+            Skills I've built,<br />year by year.
+          </h2>
+        </div>
+
+        <SkillsTimeline onComplete={() => setTruckDone(true)} />
+
+        <AnimatePresence>
+          {truckDone && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <SkillsMarquee />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* ===== COMPETITIVE PROGRAMMING ===== */}
       {/* Header + List */}
       <div className="blog-layout">
         <div>
