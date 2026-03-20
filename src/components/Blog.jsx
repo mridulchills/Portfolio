@@ -67,9 +67,10 @@ export default function Blog() {
   const [stats, setStats] = useState({ total: 0, today: 0 })
   const [truckDone, setTruckDone] = useState(false)
   const chartRef = useRef(null)
+  const isMounted = useRef(true)
 
   useEffect(() => {
-    let isMounted = true;
+    isMounted.current = true;
     
     const fetchData = async () => {
       try {
@@ -97,7 +98,7 @@ export default function Blog() {
         
         if (infoData.status !== 'OK' || ratingData.status !== 'OK') throw new Error('API return not OK')
         
-        if (isMounted) {
+        if (isMounted.current) {
           setProfile(infoData.result[0])
           setRatings(ratingData.result)
           
@@ -127,7 +128,7 @@ export default function Blog() {
         
       } catch (err) {
         // Fallback state on error
-        if (isMounted) {
+        if (isMounted.current) {
           setProfile({
             rank: 'candidate master',
             rating: 1912,
@@ -150,7 +151,7 @@ export default function Blog() {
     }
     
     fetchData()
-    return () => { isMounted = false }
+    return () => { isMounted.current = false }
   }, [])
 
   const currentRank = profile ? `${capitalize(profile.rank)} — ${profile.rating}` : ''

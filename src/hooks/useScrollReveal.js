@@ -7,18 +7,24 @@ export function useScrollReveal(options = {}) {
     const el = ref.current
     if (!el) return
 
-    const children = Array.from(el.querySelectorAll('.reveal'))
+    let hasIntersected = false
+
+    const revealItems = (items) => {
+      items.forEach((item, i) => {
+        if (item.classList.contains('visible')) return
+        setTimeout(() => {
+          item.classList.add('visible')
+        }, i * (options.stagger || 120))
+      })
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const items = Array.from(entry.target.querySelectorAll('.reveal'))
-            items.forEach((item, i) => {
-              setTimeout(() => {
-                item.classList.add('visible')
-              }, i * (options.stagger || 120))
-            })
+            hasIntersected = true
+            const items = Array.from(entry.target.querySelectorAll('.reveal:not(.visible)'))
+            revealItems(items)
             observer.unobserve(entry.target)
           }
         })
@@ -28,8 +34,25 @@ export function useScrollReveal(options = {}) {
 
     observer.observe(el)
 
-    return () => observer.disconnect()
-  }, [])
+    const mutObserver = new MutationObserver(() => {
+      // If the parent section was already intersected, OR it's currently in the viewport, reveal new children
+      const rect = el.getBoundingClientRect()
+      const inViewport = rect.top < window.innerHeight && rect.bottom > 0
+
+      if (hasIntersected || inViewport) {
+        hasIntersected = true
+        const items = Array.from(el.querySelectorAll('.reveal:not(.visible)'))
+        revealItems(items)
+      }
+    })
+
+    mutObserver.observe(el, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutObserver.disconnect()
+    }
+  }, [options.stagger, options.threshold])
 
   return ref
 }
