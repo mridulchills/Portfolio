@@ -1,4 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { CometCard } from './CometCard'
 
 export default function Portfolio() {
   const sectionRef = useScrollReveal({ stagger: 130 })
@@ -26,7 +27,7 @@ export default function Portfolio() {
         {/* Right column: asymmetric grid */}
         <div className="project-grid reveal">
           {/* FDTS — spans full height on left */}
-          <a href="https://fdp-theta.vercel.app" className="project-card project-card--seone" target="_blank" rel="noopener noreferrer">
+          <CometCard wrapperClassName="project-card--seone" className="project-card" href="https://fdp-theta.vercel.app" target="_blank" rel="noopener noreferrer">
             <div className="project-card-header">
               <span className="project-card-name">Faculty Development Tracker System..</span>
               <span className="project-card-tags">Full Stack ·<br />React · SQL</span>
@@ -34,10 +35,10 @@ export default function Portfolio() {
             <div className="project-card-image">
               <img src="/mockup-seone.png" alt="FDTS dashboard" />
             </div>
-          </a>
+          </CometCard>
 
           {/* Verdicto — top right */}
-          <a href="https://github.com/mridulchills/Verdicto" className="project-card project-card--beserver" target="_blank" rel="noopener noreferrer">
+          <CometCard wrapperClassName="project-card--beserver" className="project-card" href="https://github.com/mridulchills/Verdicto" target="_blank" rel="noopener noreferrer">
             <div className="project-card-header">
               <span className="project-card-name">Verdicto.</span>
               <span className="project-card-tags">AI · Python<br />· FastAPI</span>
@@ -45,10 +46,10 @@ export default function Portfolio() {
             <div className="project-card-image">
               <img src="/mockup-beserver.png" alt="Verdicto product" />
             </div>
-          </a>
+          </CometCard>
 
           {/* Spendora — bottom right */}
-          <a href="https://spendora-wallet.vercel.app/" className="project-card project-card--tumbler" target="_blank" rel="noopener noreferrer">
+          <CometCard wrapperClassName="project-card--tumbler" className="project-card" href="https://spendora-wallet.vercel.app/" target="_blank" rel="noopener noreferrer">
             <div className="project-card-header">
               <span className="project-card-name">
                 <div style={{ background: '#f5c01a', color: '#252535', fontSize: '9px', borderRadius: '4px', padding: '2px 6px', fontWeight: 'bold', display: 'inline-block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
@@ -61,7 +62,7 @@ export default function Portfolio() {
             <div className="project-card-image">
               <img src="/mockup-tumbler.png" alt="Spendora" />
             </div>
-          </a>
+          </CometCard>
         </div>
       </div>
     </section>
