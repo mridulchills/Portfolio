@@ -76,58 +76,72 @@ export default function Blog() {
       try {
         const handle = 'BoomTiwari';
         
-        // Timeout wrapper
-        const fetchWithTimeout = (url, ms = 5000) => {
+        // Timeout wrapper — generous timeouts since CF API can be slow
+        const fetchWithTimeout = (url, ms = 10000) => {
           return Promise.race([
             fetch(url),
             new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms))
           ]);
         };
         
-        const [infoRes, ratingRes, statusRes] = await Promise.all([
+        // Fetch profile + rating data (core, must succeed)
+        const [infoRes, ratingRes] = await Promise.all([
           fetchWithTimeout(`https://codeforces.com/api/user.info?handles=${handle}`),
-          fetchWithTimeout(`https://codeforces.com/api/user.rating?handle=${handle}`),
-          fetchWithTimeout(`https://codeforces.com/api/user.status?handle=${handle}`)
+          fetchWithTimeout(`https://codeforces.com/api/user.rating?handle=${handle}`)
         ])
         
-        if (!infoRes.ok || !ratingRes.ok || !statusRes.ok) throw new Error('API failed')
+        if (!infoRes.ok || !ratingRes.ok) throw new Error('API failed')
         
         const infoData = await infoRes.json()
         const ratingData = await ratingRes.json()
-        const statusData = await statusRes.json()
         
         if (infoData.status !== 'OK' || ratingData.status !== 'OK') throw new Error('API return not OK')
         
         if (isMounted.current) {
           setProfile(infoData.result[0])
           setRatings(ratingData.result)
+        }
+        
+        // Fetch submission stats separately — don't let it break the rest
+        try {
+          const statusRes = await fetchWithTimeout(
+            `https://codeforces.com/api/user.status?handle=${handle}`,
+            15000 // longer timeout, this endpoint returns a LOT of data
+          )
           
-          let solvedTotal = 0
-          let solvedToday = 0
-          if (statusData.status === 'OK') {
-            const solvedNames = new Set()
-            const todayStart = new Date().setHours(0,0,0,0) / 1000
-            
-            statusData.result.forEach(sub => {
-              if (sub.verdict === 'OK') {
-                const id = sub.problem.contestId + '-' + sub.problem.name
-                if (!solvedNames.has(id)) {
-                  solvedNames.add(id)
-                  if (sub.creationTimeSeconds >= todayStart) {
-                    solvedToday++
+          if (statusRes.ok) {
+            const statusData = await statusRes.json()
+            if (statusData.status === 'OK' && isMounted.current) {
+              const solvedNames = new Set()
+              const todayStart = new Date().setHours(0,0,0,0) / 1000
+              let solvedToday = 0
+              
+              statusData.result.forEach(sub => {
+                if (sub.verdict === 'OK') {
+                  const id = sub.problem.contestId + '-' + sub.problem.name
+                  if (!solvedNames.has(id)) {
+                    solvedNames.add(id)
+                    if (sub.creationTimeSeconds >= todayStart) {
+                      solvedToday++
+                    }
                   }
                 }
-              }
-            })
-            solvedTotal = solvedNames.size
+              })
+              setStats({ total: solvedNames.size, today: solvedToday })
+            }
           }
-          setStats({ total: solvedTotal, today: solvedToday })
-          
+        } catch (statusErr) {
+          console.warn('Could not fetch submission stats:', statusErr.message)
+          // Stats stay at default { total: 0, today: 0 } — that's fine
+        }
+        
+        if (isMounted.current) {
           setLoading(false)
         }
         
       } catch (err) {
-        // Fallback state on error
+        console.error('Codeforces API error:', err.message)
+        // Fallback state on error — include ALL fields the rendering code needs
         if (isMounted.current) {
           setProfile({
             rank: 'candidate master',
@@ -137,11 +151,20 @@ export default function Blog() {
           })
           const fakeData = []
           let curr = 1200
-          for(let i = 0; i < 20; i++){
-            curr += Math.random()*150 - 50
-            if (i === 15) curr = 1967 // max
-            if (i === 19) curr = 1912 // current
-            fakeData.push({ contestName: `Codeforces Round ${i+500}`, newRating: Math.round(curr) })
+          const baseTime = Math.floor(Date.now() / 1000) - (20 * 7 * 86400) // ~20 weeks ago
+          for (let i = 0; i < 20; i++) {
+            const prev = Math.round(curr)
+            curr += Math.random() * 150 - 50
+            if (i === 15) curr = 1967
+            if (i === 19) curr = 1912
+            fakeData.push({
+              contestId: 1600 + i,
+              contestName: `Codeforces Round ${i + 500}`,
+              rank: Math.floor(Math.random() * 3000) + 500,
+              ratingUpdateTimeSeconds: baseTime + (i * 7 * 86400),
+              oldRating: prev,
+              newRating: Math.round(curr)
+            })
           }
           setRatings(fakeData)
           setStats({ total: 495, today: 3 })
