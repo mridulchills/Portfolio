@@ -233,6 +233,8 @@ a {
   min-height: 100vh;
   padding: 0 var(--page-px);
   padding-top: 80px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .hero-left {
@@ -246,7 +248,7 @@ a {
   /* Name above photo */
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(80px, 14vw, 180px);
+  font-size: clamp(48px, 8vw, 140px);
   color: var(--text-white);
   line-height: 0.95;
   letter-spacing: -2px;
@@ -282,7 +284,7 @@ a {
 .hero-socials {
   position: relative;
   z-index: 4;
-  margin-top: 32px;
+  margin-top: clamp(16px, 2vw, 32px);
   display: flex;
   gap: 20px;
   opacity: 0;
@@ -312,12 +314,9 @@ a {
   position: absolute;
   bottom: 0;
   left: 28%;
-  /* Even more left to ensure name overlap from right */
   transform: translate(calc(-50% - 140px), 140px);
-  /* Start further down & left for huge image */
   z-index: 3;
-  height: 100%;
-  /* Even bigger */
+  height: clamp(60%, 85vh, 100%);
   display: flex;
   align-items: flex-end;
   pointer-events: none;
@@ -329,16 +328,14 @@ a {
 .hero-center-photo.loaded {
   opacity: 1;
   transform: translate(-50%, 0);
-  /* End at left: 15% */
 }
 
 .hero-center-photo img {
   height: 100%;
   width: auto;
-  max-width: 1200px;
+  max-width: clamp(280px, 35vw, 700px);
   object-fit: contain;
   object-position: bottom center;
-  /* keep anchored to bottom */
   -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.4));
@@ -348,7 +345,7 @@ a {
   flex: 0 0 56%;
   max-width: 56%;
   margin-left: auto;
-  padding-left: 20%;
+  padding-left: clamp(4%, 10vw, 20%);
   opacity: 0;
   transform: translateY(120px);
   transition: opacity 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -362,12 +359,12 @@ a {
 
 .hero-intro-label {
   font-family: var(--font-body);
-  font-size: 20px;
+  font-size: clamp(11px, 0.9vw, 15px);
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 14px;
+  margin-bottom: clamp(8px, 1vw, 14px);
 }
 
 .hero-intro-label .dash {
@@ -376,7 +373,7 @@ a {
 
 .hero-intro-text {
   font-family: var(--font-body);
-  font-size: 50px;
+  font-size: clamp(18px, 2.2vw, 34px);
   font-weight: 500;
   color: var(--text-white);
   line-height: 1.25;
@@ -385,19 +382,19 @@ a {
 
 .hero-intro-body {
   font-family: var(--font-body);
-  font-size: 30px;
-  color: var(--text-muted);
+  font-size: clamp(13px, 1.1vw, 17px);
+  color: var(--text-body-light);
   line-height: 1.6;
-  max-width: 1000px;
-  margin-top: 20px;
-  opacity: 0.8;
+  max-width: 600px;
+  margin-top: clamp(10px, 1.5vw, 20px);
 }
 
 .hero-actions {
-  margin-top: 36px;
+  margin-top: clamp(20px, 2.5vw, 36px);
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: clamp(14px, 2vw, 30px);
+  flex-wrap: wrap;
 }
 
 .ghost-btn {
@@ -409,8 +406,8 @@ a {
   color: var(--accent);
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 14px;
-  padding: 10px 24px;
+  font-size: clamp(12px, 1vw, 14px);
+  padding: clamp(8px, 0.8vw, 10px) clamp(16px, 1.5vw, 24px);
   border-radius: 4px;
   transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
@@ -1287,12 +1284,97 @@ footer {
 }
 
 /* ===== RESPONSIVE ===== */
+/* ===== TABLET BREAKPOINT (1200px and below) ===== */
+@media (max-width: 1200px) {
+  :root {
+    --page-px: 40px;
+  }
+
+  .hero-center-photo {
+    left: 24%;
+    height: clamp(50%, 70vh, 85%);
+  }
+
+  .hero-center-photo img {
+    max-width: clamp(220px, 30vw, 500px);
+  }
+
+  .hero-right {
+    padding-left: clamp(2%, 6vw, 12%);
+  }
+
+  .nav-links a {
+    font-size: 16px;
+  }
+
+  .nav-sep {
+    margin: 0 10px;
+  }
+}
+
+/* ===== SMALL TABLET / LARGE PHONE (900px and below) ===== */
 @media (max-width: 900px) {
   :root {
     --page-px: 24px;
     --section-py: 60px;
   }
 
+  /* -- Hero: stack vertically -- */
+  .hero-right-panel {
+    display: none;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    gap: 32px;
+  }
+
+  .hero-left {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+
+  .hero-name {
+    font-size: clamp(48px, 12vw, 80px);
+  }
+
+  .hero-right {
+    flex: 0 0 auto;
+    max-width: 100%;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .hero-center-photo {
+    left: auto;
+    right: -5%;
+    height: 65%;
+    opacity: 0.1;
+    transform: translate(0, 140px);
+  }
+
+  .hero-center-photo.loaded {
+    transform: translate(0, 0);
+  }
+
+  .hero-center-photo img {
+    max-width: 350px;
+  }
+
+  .hero-intro-text {
+    font-size: clamp(20px, 5vw, 30px);
+  }
+
+  .hero-intro-body {
+    font-size: clamp(14px, 3.5vw, 16px);
+    max-width: 100%;
+  }
+
+  /* -- Other sections -- */
   .about-top,
   .portfolio-layout,
   .blog-layout,
@@ -1302,14 +1384,6 @@ footer {
 
   .service-cards {
     grid-template-columns: 1fr;
-  }
-
-  .hero-right-panel {
-    display: none;
-  }
-
-  .hero-center-photo {
-    opacity: 0.15;
   }
 
   .project-grid {
@@ -1333,10 +1407,6 @@ footer {
 
   .testimonial-block {
     flex-direction: column;
-  }
-
-  .hero-right {
-    display: none;
   }
 
   .skills-section {
@@ -1366,6 +1436,45 @@ footer {
   .skill-tag {
     font-size: 9px;
     padding: 3px 8px;
+  }
+}
+
+/* ===== PHONE BREAKPOINT (480px and below) ===== */
+@media (max-width: 480px) {
+  :root {
+    --page-px: 16px;
+  }
+
+  .hero-name {
+    font-size: clamp(40px, 14vw, 60px);
+  }
+
+  .hero-content {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .hero-intro-text {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+
+  .hero-intro-body {
+    font-size: 14px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hero-center-photo {
+    height: 55%;
+    opacity: 0.08;
+  }
+
+  .nav-links {
+    display: none;
   }
 }
 
