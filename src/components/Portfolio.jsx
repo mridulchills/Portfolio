@@ -31,7 +31,7 @@ export default function Portfolio() {
             <div className="project-card-inner">
               <div className="project-card-front">
                 <div className="project-card-header">
-                  <span className="project-card-name">Faculty Development Tracker System..</span>
+                  <span className="project-card-name">Faculty Development Tracker System</span>
                   <span className="project-card-tags">Full Stack ·<br />React · SQL</span>
                 </div>
                 <div className="project-card-image">
@@ -54,7 +54,7 @@ export default function Portfolio() {
             <div className="project-card-inner">
               <div className="project-card-front">
                 <div className="project-card-header">
-                  <span className="project-card-name">Verdicto.</span>
+                  <span className="project-card-name">Verdicto</span>
                   <span className="project-card-tags">AI · Python<br />· FastAPI</span>
                 </div>
                 <div className="project-card-image">
@@ -77,9 +77,9 @@ export default function Portfolio() {
                 <div className="project-card-header">
                   <span className="project-card-name">
                     <div style={{ background: '#f5c01a', color: '#252535', fontSize: '9px', borderRadius: '4px', padding: '2px 6px', fontWeight: 'bold', display: 'inline-block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      🏆 1st Place
+                      National Hackathon winner
                     </div>
-                    <br />Spendora.
+                    <br />Spendora
                   </span>
                   <span className="project-card-tags">Web3 · AI<br />· Hackathon</span>
                 </div>
@@ -91,6 +91,32 @@ export default function Portfolio() {
                 <p className="about-body-text" style={{ margin: 0, color: 'var(--text-body-light)', fontSize: '15px', lineHeight: '1.6' }}>
                   <strong style={{ color: 'var(--accent)' }}>Wallet Persona</strong><br /><br />
                   Developed a full-stack app leveraging artificial intelligence to transform Ethereum wallets into AI-driven personas and financial insights, winning 1st place in Decode Select S01, a national-level online bounty hackathon.
+                </p>
+              </div>
+            </div>
+          </CometCard>
+
+          {/* Ghostrade */}
+          <CometCard wrapperClassName="project-card--ghostrade" className="project-card" href="#" target="_blank" rel="noopener noreferrer">
+            <div className="project-card-inner">
+              <div className="project-card-front">
+                <div className="project-card-header">
+                  <span className="project-card-name">
+                    <div style={{ background: '#f5c01a', color: '#252535', fontSize: '9px', borderRadius: '4px', padding: '2px 6px', fontWeight: 'bold', display: 'inline-block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      National Hackathon Track winner
+                    </div>
+                    <br />Ghostrade
+                  </span>
+                  <span className="project-card-tags">React · ML<br />· FastAPI</span>
+                </div>
+                <div className="project-card-image">
+                  <img src="/Ghostrade.png" alt="Ghostrade" />
+                </div>
+              </div>
+              <div className="project-card-back">
+                <p className="about-body-text" style={{ margin: 0, color: 'var(--text-body-light)', fontSize: '14px', lineHeight: '1.6' }}>
+                  <strong style={{ color: 'var(--accent)' }}>Ghostrade</strong><br /><br />
+                  Built a real-time stock market integrity engine that detects manipulated price moves using Isolation Forest anomaly detection over custom microstructure signals. Stack: React, Tailwind CSS, Plotly, and FastAPI ML backend
                 </p>
               </div>
             </div>
